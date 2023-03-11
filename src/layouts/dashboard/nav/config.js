@@ -10,31 +10,51 @@ const navConfig = [
     title: 'dashboard',
     path: '/dashboard/app',
     icon: icon('ic_analytics'),
+    isParent:false,
+    children:[]
   },
   {
-    title: 'user',
-    path: '/dashboard/user',
+    title: 'Pendaftaran Pasien',
+    path: '/pasien',
     icon: icon('ic_user'),
+    isParent:false,
+    children:[]
   },
   {
-    title: 'product',
-    path: '/dashboard/products',
-    icon: icon('ic_cart'),
+    title: 'Daftar Ulang',
+    path: '/daftarulang',
+    icon: icon('ic_user'),
+    isParent:false,
+    children:[]
   },
   {
-    title: 'blog',
-    path: '/dashboard/blog',
-    icon: icon('ic_blog'),
-  },
-  {
-    title: 'login',
-    path: '/login',
+    title: 'Master Data',
+    path: '#',
     icon: icon('ic_lock'),
-  },
-  {
-    title: 'Not found',
-    path: '/404',
-    icon: icon('ic_disabled'),
+    isParent:true,
+    children:[
+      {
+        title: 'user',
+        path: '/dashboard/user',
+        icon: icon('ic_user'),
+        isParent:false,
+        children:[]
+      },
+      {
+        title: 'role',
+        path: '/dashboard/role',
+        icon: icon('ic_user'),
+        isParent:false,
+        children:[]
+      },
+      {
+        title: 'menu',
+        path: '/dashboard/menu',
+        icon: icon('ic_user'),
+        isParent:false,
+        children:[]
+      },
+    ]
   },
 ];
 
