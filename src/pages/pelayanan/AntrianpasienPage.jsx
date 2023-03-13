@@ -7,7 +7,7 @@ import {
 import { Formik, Form } from "formik";
 
 import InputLabel from '@mui/material/InputLabel';
-import Autocompletecstm from '../../../components/form/Autocompletecstm';
+import Autocompletecstm from '../../components/form/Autocompletecstm';
 import TableAntrianPasienPage from './TableAntrianPasienPage';
 
 

@@ -3,26 +3,21 @@ import Autocomplete from "@mui/material/Autocomplete";
 import { TextField} from '@mui/material';
 
 const Autocompletecstm = (params) => {
+  const names = params.name;
   return (
     <Autocomplete
-            id="city_id"
-            name="city_id"
+            name={params.name}
             options={params.options}
-            getOptionLabel={option => option.name}
+            getOptionLabel={option => option.label}
             style={{ width: 300 }}
-            onChange={(e, value) => {
-              console.log(value);
-              params.setFieldValue(
-                "city_id",
-                value !== null ? value : params.initialValues.city_id
-              );
-            }}
+            // onChange={onChange}
+            onChange={(e, value) => params.setFieldValue(params.name,value.value)}
             renderInput={paramss => (
               <TextField
                 margin="normal"
                 // label="Cities"
                 fullWidth
-                name="city_id"
+                name={params.name}
                 {...paramss}
               />
             )}

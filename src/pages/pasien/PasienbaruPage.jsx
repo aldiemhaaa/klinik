@@ -1,56 +1,27 @@
 import { Helmet } from 'react-helmet-async';
-import { faker } from '@faker-js/faker';
 import {useState} from 'react';
 import { Formik,Field  } from 'formik';
 
 // @mui
-import { useTheme , alpha, styled} from '@mui/material/styles';
-import { Grid, Container, Typography, Link, Stack, IconButton, InputAdornment, TextField, Checkbox } from '@mui/material';
+import {  alpha, styled} from '@mui/material/styles';
+import { Grid, Container, Typography, IconButton,Snackbar} from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import axios from 'axios';
-// import { } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
-import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
-// import Autocomplete from '@mui/material/Autocomplete';
-import { Autocomplete } from 'formik-mui';
-import FormControl from '@mui/material/FormControl';
+import CloseIcon from '@mui/icons-material/Close';
+import Swal from 'sweetalert2'
+import { useNavigate } from 'react-router-dom';
 
-import Customtextfield from '../../components/form/Customtextfield';
-
-// import TextField from '@mui/material/TextField';
-import TextfieldCstm from '../../components/form/Textfield';
-import FormikRadioGroup from '../../components/form/FormikRadioGroup';
-
-// components
-import Iconify from '../../components/iconify';
-// sections
-import {
-  AppTasks,
-  AppNewsUpdate,
-  AppOrderTimeline,
-  AppCurrentVisits,
-  AppWebsiteVisits,
-  AppTrafficBySite,
-  AppWidgetSummary,
-  AppCurrentSubject,
-  AppConversionRates,
-} from '../../sections/@dashboard/app';
 import BASE_URL from '../../constants/env';
 
-// ----------------------------------------------------------------------
-
-
 export default function PasienbaruPage() {
-  const theme = useTheme();
-  const [username,setUsername] = useState('');
-  const [password,setPassword] = useState('');
-  const [nama,setNama] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
-
+  const [status, setStatusBase] = useState("");
+  
+  const navigate = useNavigate();
   const handleSubmit =async (e) =>{
     e.preventDefault();
   }
@@ -166,16 +137,24 @@ export default function PasienbaruPage() {
 
               }}
 
-              onSubmit={ (values, { setSubmitting }) => {
-                console.log(values);
-                setSubmitting(false);
-                // const {data} = await axios.post(`${BASE_URL}auth`,values,{
-                //   headers:{
-                //     Authorization: `Bearer ${token}`
-                //   },
-                // }
-                // );
-
+              onSubmit={ async (values, { setSubmitting }) => {
+                values.nama  =values.nama.toUpperCase();
+                const {data} = await axios.post(`${BASE_URL}pasien`,values,{
+                  headers:{
+                    Authorization: `Bearer ${token}`
+                  },
+                }
+                );
+                if (data.norm){
+                  Swal.fire({
+                    title: 'Berhasil!',
+                    text: 'Data Berhasil Disimpan',
+                    icon: 'success',
+                    confirmButtonText: 'Selanjutnya'
+                  }).then((_)=>{
+                    navigate(`/daftarulang/add/${data.norm}`);
+                  });
+                }
               }}
 
               >
@@ -516,7 +495,40 @@ export default function PasienbaruPage() {
               )}
 
           </Formik>
-       
+          {status !== ''? <AlertMassage key={status.key} message={status.msg} /> : null}
     </>
   );
+}
+
+
+const AlertMassage = ({key,message}) =>{
+  const [open, setOpen] = useState(true);
+  const handleClose = (event, reason) =>{
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+  }
+  return <>
+  
+  <Snackbar
+    anchorOrigin={{
+      vertical: "bottom",
+      horizontal: "right"
+    }}
+    open={open}
+    autoHideDuration={2000}
+    onClose={handleClose}
+    variant="warning"
+    ContentProps={{
+      "aria-describedby": "message-id"
+    }}
+    message={message}
+    action={[
+      <IconButton key="close" onClick={handleClose}>
+        <CloseIcon />
+      </IconButton>
+    ]}
+  />
+  </>;
 }

@@ -16,11 +16,9 @@ const Radiobutton = (params) => {
         <RadioGroup
         row
         aria-labelledby="demo-row-radio-buttons-group-label"
-        name="row-radio-buttons-group"
-        
         >
-            {params.value.map((e)=>{
-                return <FormControlLabel name={params.name} value={e.value} control={<Radio />} label={e.label} />
+            {params.value.map((e,index)=>{
+                return <FormControlLabel key={index.toString() + params.name} onChange={params.onChange} name={params.name} value={e.value} control={<Radio />} label={e.label} />
             })}
         
         </RadioGroup>

@@ -247,10 +247,11 @@ export default function DaftarulangPage() {
               )}
 
           </Formik>
-          {isPencarianAktif && hasilPencarian.length>0 && <>
+          {isPencarianAktif  && <>
             <hr/>
             <h4>Hasil Pencarian</h4>
-            <TablePencarian data={hasilPencarian} />
+            {hasilPencarian.length>0 && <TablePencarian data={hasilPencarian} />}
+            {hasilPencarian.length <= 0 && 'Pasien Tidak Ditemukan'}
           </>}
           </Container>
     </>

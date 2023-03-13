@@ -18,7 +18,8 @@ import EditmenuPage from './pages/menu/EditmenuPage';
 import PasienbaruPage from './pages/pasien/PasienbaruPage';
 import DaftarulangPage from './pages/daftarulang/DaftarulangPage';
 import FormdaftarulangPage from './pages/daftarulang/FormdaftarulangPage';
-import AntrianpasienPerawatPage from './pages/pelayanan/perawat/AntrianpasienPerawatPage';
+import AntrianpasienPerawatPage from './pages/pelayanan/AntrianpasienPage';
+import PelayananpasienPage from './pages/pelayanan/PelayananpasienPage';
 
 
 // ----------------------------------------------------------------------
@@ -84,6 +85,7 @@ export default function Router() {
       element:<ProtectedRoute><DashboardLayout /></ProtectedRoute>,
       children:[
         {element: <AntrianpasienPerawatPage/>,index:true},
+        {path:'proses/:noreg',element: <PelayananpasienPage/>}
 
       ] 
     },

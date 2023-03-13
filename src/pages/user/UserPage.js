@@ -156,10 +156,6 @@ export default function UserPage() {
   const emptyRowsUser = page > 0 ?Math.max(0,(1 + page) * rowsPerPage - users.length):0;
   // const filteredUsers = applySortFilter(USERLIST, getComparator(order, orderBy), filterName);
   const users = applySortFilter(user, getComparator(order, orderBy), filterName)
-// 
-
-
-  // const isNotFound = !filteredUsers.length && !!filterName;
   const isNotFoundUser = !users.length && !!filterName;
   const token = localStorage.getItem('token');
   const getAllUser = () =>{
@@ -170,13 +166,6 @@ export default function UserPage() {
       }
       })
       .then((response) => {
-        // console.log(response.data);
-        // if(response.data.metadata.code === 400){
-        //   navigate('../login',{replace:true})
-        // }else{
-        //   setUser(response.data);
-
-        // }
         setUser(response.data);
       })
       .catch((error) => {

@@ -28,6 +28,13 @@ const navConfig = [
     children:[]
   },
   {
+    title: 'Pelayanan Pasien',
+    path: '/pelayanan',
+    icon: icon('ic_user'),
+    isParent:false,
+    children:[]
+  },
+  {
     title: 'Master Data',
     path: '#',
     icon: icon('ic_lock'),
